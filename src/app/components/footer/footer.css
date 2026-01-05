@@ -1,0 +1,17 @@
+footer {
+    background: var(--darker-bg); padding: 3rem 5%;
+    border-top: 1px solid var(--border-color); margin-top: 4rem; text-align: center;
+}
+
+.footer-content {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 1.5rem; max-width: 1400px; margin: 0 auto;
+}
+
+.social-links { display: flex; gap: 1.5rem; }
+.social-links a { font-size: 1.5rem; transition: var(--transition); color: var(--light-text); }
+.social-links a:hover { color: var(--primary-color); transform: translateY(-3px); }
+
+@media (max-width: 600px) {
+    .footer-content { flex-direction: column; gap: 1.5rem; }
+}

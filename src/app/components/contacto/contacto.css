@@ -1,0 +1,22 @@
+.contact-container {
+    max-width: 600px; margin: 0 auto; background: var(--card-bg);
+    padding: 2.5rem; border-radius: 15px; border: 1px solid var(--border-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.form-group { margin-bottom: 1.5rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; color: var(--light-text); font-weight: 500; }
+
+.form-group input, .form-group textarea {
+    width: 100%; padding: 12px; background: var(--darker-bg);
+    border: 1px solid var(--border-color); border-radius: 8px;
+    color: var(--light-text); font-family: inherit; font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(108, 99, 255, 0.3);
+}
+
+.btn-submit { width: 100%; margin-top: 0.5rem; }
