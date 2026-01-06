@@ -1,0 +1,42 @@
+name: portfolio deploy App
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:   
+    - name: Checkout del código
+      uses: actions/checkout@v4
+
+    - name: Instalar Node.js
+      uses: actions/setup-node@v4
+      with:
+          node-version: '21'
+
+    - name: Instalar dependencias
+      run: npm ci
+
+    - name: Generar environment.prod.ts
+      run: |
+          echo "export const environment = {" > src/environments/environment.prod.ts
+          echo "  production: true," >> src/environments/environment.prod.ts
+          echo "  emailJs: {" >> src/environments/environment.prod.ts
+          echo "    serviceId: '${{ secrets.EMAILJS_SERVICE_ID }}'," >> src/environments/environment.prod.ts
+          echo "    templateId: '${{ secrets.EMAILJS_TEMPLATE_ID }}'," >> src/environments/environment.prod.ts
+          echo "    publicKey: '${{ secrets.EMAILJS_PUBLIC_KEY }}'" >> src/environments/environment.prod.ts
+          echo "  }" >> src/environments/environment.prod.ts
+          echo "};" >> src/environments/environment.prod.ts
+
+    - name: Construir proyecto (Build)
+      run: npm run build -- --configuration=production --base-href=/portfolio/ 
+
+    - name: Desplegar en GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+         folder: dist/mi-portfolio/browser
+         branch: gh-pages
