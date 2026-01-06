@@ -16,7 +16,7 @@ jobs:
     - name: Instalar Node.js
       uses: actions/setup-node@v4
       with:
-          node-version: '21'
+          node-version: '20'
 
     - name: Instalar dependencias
       run: npm ci
@@ -38,5 +38,5 @@ jobs:
     - name: Desplegar en GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-         folder: dist/mi-portfolio/browser
+         folder: dist/mi-portafolio/browser
          branch: gh-pages
