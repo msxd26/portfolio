@@ -2,7 +2,7 @@ import { Component, inject, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import emailjs from '@emailjs/browser';
 import Swal from 'sweetalert2';
-import { environment } from '../../../environments/environments.prod';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-contacto',
