@@ -1,6 +1,8 @@
 import { Component, inject, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import emailjs from '@emailjs/browser';
+import Swal from 'sweetalert2';
+import { environment } from '../../../environments/environments.prod';
 
 @Component({
   selector: 'app-contacto',
@@ -11,7 +13,6 @@ import emailjs from '@emailjs/browser';
 export class Contacto {
 
   private fb = inject(FormBuilder);
-
   onEmailSent = output<boolean>();
 
   contactForm = this.fb.group({
@@ -30,10 +31,7 @@ export class Contacto {
 
     this.isSubmitting = true;
 
-    const serviceID = 'service_234jvat';
-    const templateID = 'template_6emxoyf';
-    const publicKey = '13LekuHBNqhvM9IPB';
-
+    const { serviceId, templateId, publicKey } = environment.emailJs;
 
     const templateParams = {
       name: this.contactForm.value.name,
@@ -42,16 +40,29 @@ export class Contacto {
     };
 
     try {
-      await emailjs.send(serviceID, templateID, templateParams, publicKey);
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
 
-      alert('¡Mensaje enviado con éxito!');
+      Swal.fire({
+        title: '¡Mensaje Enviado!',
+        text: 'Gracias por contactarme, te responderé lo antes posible.',
+        icon: 'success',
+        confirmButtonText: 'Genial',
+        confirmButtonColor: '#2563eb',
+        heightAuto: false
+      });
+
       this.contactForm.reset();
-
       this.onEmailSent.emit(true);
 
     } catch (error) {
       console.error('Error al enviar:', error);
-      alert('Ocurrió un error. Inténtalo de nuevo.');
+      Swal.fire({
+        title: 'Hubo un error',
+        text: 'No se pudo enviar el mensaje. Por favor intenta de nuevo más tarde.',
+        icon: 'error',
+        confirmButtonText: 'Cerrar',
+        confirmButtonColor: '#d33'
+      });
     } finally {
       this.isSubmitting = false;
     }
